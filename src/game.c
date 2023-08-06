@@ -149,7 +149,7 @@ void game_draw_ui(struct game *g)
 		DrawText("<right-mouse> - kill cell", 10+padding, s1*10+padding-6, fontSize, DARKBLUE);
 
 		size_t active_cell = get_mouse_over_cell(g);
-		if (active_cell < 0 || active_cell >= g->rows*g->cols) {
+		if (active_cell >= g->rows*g->cols) {
 			return;
 		}
 
@@ -177,13 +177,13 @@ bool should_live(const size_t i, const struct game *g)
 		right = g->dish[i+1];
 	}
 
-	if (i > g->cols && i-g->cols >= 0) {
+	if (i > g->cols && i-g->cols > 0) {
 		top = g->dish[i-g->cols];
 	}
-	if (i > g->cols && i-g->cols-1 >= 0) {
+	if (i > g->cols && i-g->cols > 0) {
 		top_left = g->dish[i-g->cols-1];
 	}
-	if (i > g->cols && i-g->cols+1 >= 0) {
+	if (i > g->cols && i-g->cols+1 > 0) {
 		top_right = g->dish[i-g->cols+1];
 	}
 
