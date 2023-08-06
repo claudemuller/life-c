@@ -1,5 +1,6 @@
 # Conway's Game of Life
 
+[![build](https://github.com/claudemuller/life-c/actions/workflows/c.yml/badge.svg)](https://github.com/claudemuller/life-c/actions/workflows/c.yml)
 
 Conway's Game of Life written in C with [raylib](https://github.com/raysan5/raylib).
 
@@ -8,7 +9,7 @@ Conway's Game of Life written in C with [raylib](https://github.com/raysan5/rayl
 # Requirements
 
 - [gcc](https://gcc.gnu.org/)
-- or [glang](https://clang.llvm.org/)
+- or [clang](https://clang.llvm.org/)
 - [make](https://www.gnu.org/software/make/)
 - [raylib](https://github.com/raysan5/raylib)
 
