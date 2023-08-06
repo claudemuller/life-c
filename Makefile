@@ -17,13 +17,16 @@ BIN = $(BIN_DIR)/life
 TEST_DIR = ./tests
 TEST_SRC = $(filter-out ./src/main.c, $(wildcard ./src/*.c)) $(TEST_DIR)/*.c
 
-build:
+build: bin-dir
 	$(CC) $(CFLAGS) $(INCS) $(LIBS) -o $(BIN) $(SRC_FILES)
+
+bin-dir:
+	mkdir -p $(BIN_DIR)
 
 debug: debug-build
 	$(DBG_BIN) $(BIN) $(ARGS)
 
-debug-build:
+debug-build: bin-dir
 	$(CC) $(CFLAGS) $(INCS) $(LIBS) -g -o $(BIN) $(SRC_FILES)
 
 run: build
