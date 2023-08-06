@@ -8,8 +8,18 @@ CFLAGS += -pedantic
 CFLAGS += -Werror
 CFLAGS += -Wmissing-declarations
 
-INCS = $(shell pkg-config --cflags raylib)
-LIBS = $(shell pkg-config --libs raylib)
+ifeq ($(shell uname), Linux)
+
+CFLAGS += -I/usr/local/include
+LDFLAGS = -L/usr/local/lib
+LIBS = -lraylib
+
+else
+
+CFLAGS += $(shell pkg-config --cflags raylib)
+LDFLAGS = $(shell pkg-config --libs raylib)
+
+endif
 
 SRC_FILES = ./src/*.c
 BIN_DIR = ./bin
@@ -18,7 +28,7 @@ TEST_DIR = ./tests
 TEST_SRC = $(filter-out ./src/main.c, $(wildcard ./src/*.c)) $(TEST_DIR)/*.c
 
 build: bin-dir
-	$(CC) $(CFLAGS) $(INCS) $(LIBS) -o $(BIN) $(SRC_FILES)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $(BIN) $(SRC_FILES)
 
 bin-dir:
 	mkdir -p $(BIN_DIR)
@@ -27,16 +37,16 @@ debug: debug-build
 	$(DBG_BIN) $(BIN) $(ARGS)
 
 debug-build: bin-dir
-	$(CC) $(CFLAGS) $(INCS) $(LIBS) -g -o $(BIN) $(SRC_FILES)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -g -o $(BIN) $(SRC_FILES)
 
 run: build
 	@$(BIN) $(ARGS)
 
 test:
-	$(CC) $(CFLAGS) $(INCS) $(LIBS) -o $(TEST_DIR)/tests $(TEST_SRC) && $(TEST_DIR)/tests
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $(TEST_DIR)/tests $(TEST_SRC) && $(TEST_DIR)/tests
 
 test-debug:
-	$(CC) $(CFLAGS) $(INCS) $(LIBS) -g -o $(TEST_DIR)/tests $(TEST_SRC) && lldb $(TEST_DIR)/tests $(ARGS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -g -o $(TEST_DIR)/tests $(TEST_SRC) && lldb $(TEST_DIR)/tests $(ARGS)
 
 clean:
 	rm -rf $(BIN_DIR)/* $(TEST_DIR)/tests*
