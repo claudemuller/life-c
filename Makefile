@@ -6,6 +6,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -pedantic
 CFLAGS += -Werror
+CFLAGS += -Wextra
 CFLAGS += -Wmissing-declarations
 
 ifeq ($(shell uname), Linux)
