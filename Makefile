@@ -10,7 +10,6 @@ CFLAGS += -Wmissing-declarations
 
 INCS = $(shell pkg-config --cflags raylib)
 LIBS = $(shell pkg-config --libs raylib)
-LIBS += -Llib
 
 SRC_FILES = ./src/*.c
 BIN_DIR = ./bin
