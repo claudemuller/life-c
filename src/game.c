@@ -12,19 +12,19 @@ struct game *game_new(const size_t cell_size, const size_t rows, const size_t co
 
     bool *d = calloc(cols*rows, sizeof(bool));
     if (!d) {
-        perror("error allocating memory");
+        fprintf(stderr, "error allocating memory");
         return NULL;
     }
 
     bool *db = calloc(cols*rows, sizeof(bool));
     if (!db) {
-        perror("error allocating memory");
+        fprintf(stderr, "error allocating memory");
         return NULL;
     }
 
     struct game *g = malloc(sizeof(struct game));
     if (!g) {
-        perror("error allocating memory");
+        fprintf(stderr, "error allocating memory");
         return NULL;
     }
     g->screen_width = w;

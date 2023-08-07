@@ -11,7 +11,7 @@ int main(void)
 
     struct game *g = game_new(cell_size, rows, cols, 0.5);
     if (!g) {
-        perror("error creating game struct");
+        fprintf(stderr, "error creating game struct");
         exit(1);
     }
 
