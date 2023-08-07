@@ -1,7 +1,7 @@
 CC = gcc
 DBG_BIN = lldb
 CFLAGS = #-D_GNU_SOURCE
-CFLAGS += -std=c99
+CFLAGS += -std=c11
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -pedantic
