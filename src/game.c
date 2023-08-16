@@ -166,38 +166,43 @@ void game_draw_ui(struct game *g)
 
 bool should_live(const size_t i, const struct game *g)
 {
-	int left = 0, top_left = 0, bottom_left = 0;
-    int right = 0, top_right = 0, bottom_right = 0;
-    int top = 0, bottom = 0;
+	const unsigned long dish_min = 0, dish_max = g->cols * g->rows;
+	int neighbours = 0;
 
-	if (i > 0) {
-		left = g->dish[i-1];
+	// Left
+	if (i > dish_min) {
+		neighbours += g->dish[i-1];
 	}
-	if (i+1 < g->rows*g->cols) {
-		right = g->dish[i+1];
-	}
-
-	if (i > g->cols && i-g->cols > 0) {
-		top = g->dish[i-g->cols];
-	}
-	if (i > g->cols && i-g->cols > 0) {
-		top_left = g->dish[i-g->cols-1];
-	}
-	if (i > g->cols && i-g->cols+1 > 0) {
-		top_right = g->dish[i-g->cols+1];
+	// Right
+	if (i+1 < dish_max) {
+		neighbours += g->dish[i+1];
 	}
 
-	if (i+g->cols < g->rows*g->cols) {
-		bottom = g->dish[i+g->cols];
+	// Top
+	if (i > g->cols && i-g->cols > dish_min) {
+		neighbours += g->dish[i-g->cols];
 	}
-	if (i+g->cols-1 < g->rows*g->cols) {
-		bottom_left = g->dish[i+g->cols-1];
+	// Top left
+	if (i > g->cols && i-g->cols > dish_min) {
+		neighbours += g->dish[i-1-g->cols];
 	}
-	if (i+g->cols+1 < g->rows*g->cols) {
-		bottom_right = g->dish[i+g->cols+1];
+	// Top right
+	if (i > g->cols && i+1-g->cols > dish_min) {
+		neighbours += g->dish[i+1-g->cols];
 	}
 
-	int neighbours = left + right + top + bottom + top_left + top_right + bottom_left + bottom_right;
+	// Bottom
+	if (i+g->cols < dish_max) {
+		neighbours += g->dish[i+g->cols];
+	}
+	// Bottom left
+	if (i-1+g->cols < dish_max) {
+		neighbours += g->dish[i-1+g->cols];
+	}
+	// Bottom right
+	if (i+1+g->cols < dish_max) {
+		neighbours += g->dish[i+1+g->cols];
+	}
 
 	if (!g->dish[i]) {
 		return neighbours == 3;
