@@ -7,8 +7,16 @@ CFLAGS += -pedantic
 CFLAGS += -Werror
 CFLAGS += -Wextra
 CFLAGS += -Wmissing-declarations
+
+ifeq ($(shell uname -s),Darwin)
 CFLAGS += $(shell pkg-config --cflags raylib)
 LDFLAGS = $(shell pkg-config --libs raylib)
+
+else
+CFLAGS += -L/usr/local/lib
+LDFLAGS = -I/usr/local/include -lraylib -lGL -lm -pthread -ldl
+endif
+
 SRC_FILES = ./src/*.c
 BIN_DIR = ./bin
 BIN = $(BIN_DIR)/life

@@ -19,11 +19,8 @@ jobs:
         sudo apt -y install build-essential git libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
         git clone https://github.com/raysan5/raylib.git raylib
         cd raylib/src/
-        make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED
-        sudo make install RAYLIB_LIBTYPE=SHARED
+        make PLATFORM=PLATFORM_DESKTOP
+        sudo make install
 
     - name: make build
       run: make build
-
-    #- name: make test
-    #  run: make test
